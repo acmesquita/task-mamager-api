@@ -1,3 +1,5 @@
+load './lib/tasks/api_version_constraint.rb'
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -5,7 +7,8 @@ Rails.application.routes.draw do
   # subdomain -> adicionar 'api' no inicio do site
   # path -> '/' defini que deve ser inforamado o nome do controller logo após o '.com' 
   namespace :api, defaults: { format: :json }, contraints: { subdomain: 'api'}, path: '/'  do
-    
-
+    namespace :v1, path: "/", contraints: ApiVersionConstraint.new(version: 1, default: true) do
+      
+    end
   end
 end
