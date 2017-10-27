@@ -6,12 +6,12 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to validate_confirmation_of(:password) }
-  it { is_expected.to allow_value("catharina@catha.com").for(:email) }
+  it { is_expected.to allow_value('catharina@catha.com').for(:email) }
 
 end
 
 ## Examples ##
-#pending "add some examples to (or delete) #{__FILE__}"
+#pending 'add some examples to (or delete) #{__FILE__}'
   # subject { build(:user) }
   # before {@user = FactoryBot.build(:user)}
 
@@ -31,7 +31,7 @@ end
   
   # context 'when name is blank' do
     
-    #   before { user.name = " " }
+    #   before { user.name = ' ' }
     
     #   it { expect(user).not_to be_valid }
     # end
