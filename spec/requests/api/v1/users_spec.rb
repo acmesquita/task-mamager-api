@@ -69,4 +69,42 @@ RSpec.describe 'Users API', type: :request do
 
     end
 
+    describe 'PUT /users/:id' do
+
+        before do
+            heardes = { 'Accept' => 'application/vnd.taskmanager.v1' }
+            put "/users/#{user_id}", params: {user: user_params}, headers: heardes
+        end
+
+        context 'when the request params are valid' do
+           
+            let(:user_params) { {email: 'new@email.com'} }
+
+            it 'returns status code 200' do
+                expect(response).to have_http_status(200)
+            end
+
+            it 'returns the json data for update user' do
+                user_response = JSON.parse(response.body, symbolize_names: true)
+                expect(user_response[:email]).to eq(user_params[:email])
+            end
+
+        end
+
+        context 'when the request params are invalid' do
+
+            let(:user_params) { attributes_for(:user, email: 'catharina@') }
+            
+            it 'return status code 422' do
+                expect(response).to have_http_status(422)
+            end
+
+            it 'returns json data for the errors' do
+                user_response = JSON.parse(response.body, symbolize_names: true)
+                expect(user_response).to have_key(:errors)
+            end
+        end
+    end
+    
+
 end
