@@ -28,7 +28,12 @@ class Api::V1::TasksController < ApplicationController
             render json: task, status: 200
         else
             render json: {errors: task.errors}, status: 422
-        end 
+        end
+    end
+
+    def destroy
+        current_user.tasks.find(params[:id]).destroy
+        head 204
     end
 
     private
