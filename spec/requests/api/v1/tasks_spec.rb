@@ -44,5 +44,34 @@ RSpec.describe 'Task API' do
 
     end
 
-    
+    describe 'POST /tasks' do
+        
+        before do
+            post '/tasks', params: task_params, headers: headers
+        end
+
+        context 'when the params is valid' do
+            let(:task_params){ attributes_for(:task)}
+
+            it 'returns status code 201' do
+                expect(response).to have_http_status(200)
+            end
+
+            it 'save the task in the database' do
+                expect(Task.find_by(title: task_params[:title])).not_to_be_nil
+            end
+
+            it 'returns the json for creaded task' do
+                expect(json_body[:title]).to eq(task_params[:title])
+            end
+
+            it 'assing the created task to the current user' do
+                expect(json_body[:user_id]).to eq(user.id)
+            end
+        end
+
+        context 'when the params is invalid' do
+        end
+      
+    end
 end
