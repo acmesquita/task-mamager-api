@@ -47,18 +47,18 @@ RSpec.describe 'Task API' do
     describe 'POST /tasks' do
         
         before do
-            post '/tasks', params: task_params, headers: headers
+            post '/tasks', params: {task: task_params}.to_json, headers: headers
         end
 
         context 'when the params is valid' do
             let(:task_params){ attributes_for(:task)}
 
             it 'returns status code 201' do
-                expect(response).to have_http_status(200)
+                expect(response).to have_http_status(201)
             end
 
             it 'save the task in the database' do
-                expect(Task.find_by(title: task_params[:title])).not_to_be_nil
+                expect(Task.find_by(title: task_params[:title])).not_to be_nil
             end
 
             it 'returns the json for creaded task' do
@@ -71,6 +71,20 @@ RSpec.describe 'Task API' do
         end
 
         context 'when the params is invalid' do
+            let(:task_params){ attributes_for(:task, title: ' ')}
+
+            it 'returns status code 422' do
+                expect(response).to have_http_status(422)
+            end
+
+            it 'does not save the task in the database' do
+                expect(Task.find_by(title: task_params[:title])).to be_nil
+            end
+
+            it 'returns the json erros for title' do
+                expect(json_body[:errors]).to have_key(:title)
+            end
+
         end
       
     end
