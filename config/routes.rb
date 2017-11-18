@@ -8,10 +8,15 @@ Rails.application.routes.draw do
   # subdomain -> adicionar 'api' no inicio do site
   # path -> '/' defini que deve ser inforamado o nome do controller logo após o '.com' 
   namespace :api, defaults: { format: :json }, contraints: { subdomain: 'api'}, path: '/'  do
-    namespace :v1, path: '/', contraints: ApiVersionConstraint.new(version: 1, default: true) do
+    namespace :v1, path: '/', contraints: ApiVersionConstraint.new(version: 1) do
         resources :users, only: [:show, :create, :update, :destroy]
         resources :sessions, only: [:create, :destroy]
         resources :tasks, only: [:index, :show, :create, :update, :destroy]
     end
+    namespace :v2, path: '/', contraints: ApiVersionConstraint.new(version: 2, default: true) do
+      resources :users, only: [:show, :create, :update, :destroy]
+      resources :sessions, only: [:create, :destroy]
+      resources :tasks, only: [:index, :show, :create, :update, :destroy]
+  end
   end
 end
