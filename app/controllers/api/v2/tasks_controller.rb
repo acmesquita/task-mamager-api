@@ -4,12 +4,12 @@ class Api::V2::TasksController < ApplicationController
 
     def index
         tasks = current_user.tasks
-        render json: {tasks: tasks}, status: 200
+        render json: tasks, status: 200
     end
 
     def show
         task = current_user.tasks.find(params[:id])
-        render json: task, status: 200
+        render json: task , serializer: Api::V2::TaskSerializer, status: 200
     end
 
     def create
