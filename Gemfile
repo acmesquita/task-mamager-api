@@ -29,8 +29,11 @@ gem 'puma', '~> 3.7'
 gem 'devise'
 # Gem para serialização dos modelos
 gem 'active_model_serializers', '~> 0.10.6'
-
+# Gem para "facilitar" buscas
 gem 'ransack'
+# Gem autenticação mais avançada
+gem 'omniauth'
+gem 'devise_token_auth'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
