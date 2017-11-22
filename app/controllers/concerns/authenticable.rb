@@ -4,7 +4,7 @@ module Authenticable
        @current_user ||= User.find_by(auth_token: request.headers['Authorization'])
     end
 
-    def authentication_with_token!
+    def authenticate_with_token!
         render json: { errors: 'Unauthorized access!'}, status: 401 unless user_logged_in?
     end
 

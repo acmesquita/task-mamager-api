@@ -22,7 +22,7 @@ RSpec.describe Authenticable do
 
     describe '#authentication_with_token!' do
         controller do
-            before_action :authentication_with_token!
+            before_action :authenticate_with_token!
 
             def restricted_action; end
         end

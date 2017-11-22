@@ -1,6 +1,6 @@
-class Api::V1::TasksController < ApplicationController
+class Api::V1::TasksController < Api::V1::BaseController
 
-    before_action :authentication_with_token!
+    before_action :authenticate_with_token!
 
     def index
         tasks = current_user.tasks

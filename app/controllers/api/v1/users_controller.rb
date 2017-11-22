@@ -1,5 +1,5 @@
-class Api::V1::UsersController < ApplicationController
-    before_action :authentication_with_token!, only:[:update, :destroy]
+class Api::V1::UsersController <  Api::V1::BaseController
+    before_action :authenticate_with_token!, only:[:update, :destroy]
     respond_to :json
 
     def show
