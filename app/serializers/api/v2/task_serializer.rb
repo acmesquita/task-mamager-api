@@ -1,6 +1,6 @@
 class Api::V2::TaskSerializer < ApplicationSerializer
   attributes :id, :title, :description, :done, :deadline, :user_id, :created_at, :updated_at,
-  :short_description, :is_late, :dateline_to_br
+  :short_description, :is_late, :deadline_to_br
 
   def short_description
     object.description[0..40] if object.description.present?
@@ -10,7 +10,7 @@ class Api::V2::TaskSerializer < ApplicationSerializer
     Time.current > object.deadline if object.deadline.present?
   end
 
-  def dateline_to_br
+  def deadline_to_br
     I18n.l(object.deadline, format: :datetime) if object.deadline.present?
   end
 
